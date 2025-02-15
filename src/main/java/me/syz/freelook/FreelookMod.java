@@ -1,6 +1,7 @@
 package me.syz.freelook;
 
 import me.syz.freelook.config.FreelookConfig;
+import me.syz.freelook.hooks.FreelookHook;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
@@ -9,8 +10,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-
-// TODO: Clean up Hypixel stuff.
 @Mod(modid = FreelookMod.MODID, name = FreelookMod.NAME, version = FreelookMod.VERSION)
 public class FreelookMod {
     public static final String MODID = "@ID@";
@@ -28,36 +27,32 @@ public class FreelookMod {
 
     @SubscribeEvent
     public void onGuiOpen(GuiOpenEvent event) {
-        if (Freelook.mc.thePlayer != null && Freelook.mc.theWorld != null) {
-            //#if MC==10809
+        if (FreelookHook.mc.thePlayer != null && FreelookHook.mc.theWorld != null) {
             if (event.gui == null) return;
-            //#else
-            //$$ if (event.getGui() == null) return;
-            //#endif
-            if (Freelook.INSTANCE.perspectiveToggled && FreelookConfig.hold) {
-                Freelook.INSTANCE.resetPerspective();
+            if (FreelookHook.perspectiveToggled && FreelookConfig.hold) {
+                FreelookHook.resetPerspective();
             }
         }
     }
 
     @SubscribeEvent
     public void onTick(TickEvent.RenderTickEvent event) {
-        if (Freelook.mc.thePlayer != null && Freelook.mc.theWorld != null) {
+        if (FreelookHook.mc.thePlayer != null && FreelookHook.mc.theWorld != null) {
             if (event.phase.equals(TickEvent.Phase.START)) return;
 
             boolean down = FreelookConfig.keyBind.isActive();
-            if (down != Freelook.INSTANCE.prevState && Freelook.mc.currentScreen == null) {
-                Freelook.INSTANCE.onPressed(down);
-                Freelook.INSTANCE.prevState = down;
+            if (down != FreelookHook.prevState && FreelookHook.mc.currentScreen == null) {
+                FreelookHook.onPressed(down);
+                FreelookHook.prevState = down;
             }
         }
     }
 
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
-        if (Freelook.mc.thePlayer != null && Freelook.mc.theWorld != null) {
-            if (Freelook.INSTANCE.perspectiveToggled) {
-                Freelook.INSTANCE.resetPerspective();
+        if (FreelookHook.mc.thePlayer != null && FreelookHook.mc.theWorld != null) {
+            if (FreelookHook.perspectiveToggled) {
+                FreelookHook.resetPerspective();
             }
         }
     }

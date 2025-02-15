@@ -1,24 +1,20 @@
-package me.syz.freelook;
+package me.syz.freelook.hooks;
 
-import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils;
+import me.syz.freelook.FreelookMod;
 import me.syz.freelook.config.FreelookConfig;
 import net.minecraft.client.Minecraft;
 
-public class Freelook {
-    public static final Freelook INSTANCE;
+public class FreelookHook {
     public static final Minecraft mc = Minecraft.getMinecraft();
 
-    static {
-        INSTANCE = new Freelook();
-    }
+    public static boolean perspectiveToggled = false;
+    public static boolean prevState = false;
+    public static float cameraYaw = 0.0f;
+    public static float cameraPitch = 0.0f;
 
-    public boolean perspectiveToggled = false;
-    public boolean prevState = false;
-    public float cameraYaw = 0.0f;
-    public float cameraPitch = 0.0f;
-    private int previousPerspective = 0;
+    private static int previousPerspective = 0;
 
-    public void onPressed(boolean down) {
+    public static void onPressed(boolean down) {
         if (FreelookMod.config.enabled) {
             if (down) {
                 cameraYaw = mc.thePlayer.rotationYaw;
@@ -39,7 +35,7 @@ public class Freelook {
         }
     }
 
-    public void enterPerspective() {
+    public static void enterPerspective() {
         perspectiveToggled = true;
 
         previousPerspective = mc.gameSettings.thirdPersonView;
@@ -47,7 +43,7 @@ public class Freelook {
         mc.gameSettings.thirdPersonView = FreelookConfig.perspective;
     }
 
-    public void resetPerspective() {
+    public static void resetPerspective() {
         perspectiveToggled = false;
 
         mc.gameSettings.thirdPersonView = previousPerspective;
@@ -55,15 +51,9 @@ public class Freelook {
         mc.renderGlobal.setDisplayListEntitiesDirty();
     }
 
-    public boolean overrideMouse() {
+    public static boolean overrideMouse() {
         if (mc.inGameHasFocus) {
             if (!perspectiveToggled) return true;
-
-            if (HypixelUtils.INSTANCE.isHypixel() || FreelookConfig.snaplook) {
-                cameraYaw = mc.thePlayer.rotationYaw;
-                cameraPitch = mc.thePlayer.rotationPitch;
-                return true;
-            }
 
             mc.mouseHelper.mouseXYChange();
 
@@ -75,7 +65,7 @@ public class Freelook {
         return false;
     }
 
-    public void handleYaw() {
+    public static void handleYaw() {
         float sensitivity = calculateSensitivity();
         float yaw = mc.mouseHelper.deltaX * sensitivity;
 
@@ -84,7 +74,7 @@ public class Freelook {
         cameraYaw += yaw * 0.15f;
     }
 
-    public void handlePitch() {
+    public static void handlePitch() {
         float sensitivity = calculateSensitivity();
         float pitch = mc.mouseHelper.deltaY * sensitivity;
 
@@ -95,7 +85,7 @@ public class Freelook {
         if (FreelookConfig.lockPitch) cameraPitch = Math.max(-90.0f, Math.min(cameraPitch, 90.0f));
     }
 
-    public float calculateSensitivity() {
+    public static float calculateSensitivity() {
         float sensitivity = mc.gameSettings.mouseSensitivity * 0.6f + 0.2f;
         return sensitivity * sensitivity * sensitivity * 8.0f;
     }

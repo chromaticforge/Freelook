@@ -3,6 +3,7 @@ package me.syz.freelook.config;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Dropdown;
 import cc.polyfrost.oneconfig.config.annotations.KeyBind;
+import cc.polyfrost.oneconfig.config.annotations.Slider;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -17,11 +18,14 @@ public class FreelookConfig extends Config {
     @Switch(name = "Hold", subcategory = "Key Bind")
     public static boolean hold = true;
 
-    @Switch(name = "Snaplook", subcategory = "Camera", description = "Always on if you're playing Hypixel!")
-    public static boolean snaplook = false;
-
-    @Dropdown(name = "Perspective", options = {"First", "Third", "Reverse"}, subcategory = "Camera")
+    @Dropdown(name = "Perspective", options = {"First", "Third", "Reverse"}, subcategory = "Perspective")
     public static int perspective = 1;
+
+    @Switch(name = "Smooth", subcategory = "Perspective")
+    public static boolean smooth = false;
+
+    @Slider(name = "FOV", min = 30F, max = 110F, subcategory = "Perspective")
+    public static float fov = 70f;
 
     @Switch(name = "Pitch", subcategory = "Camera")
     public static boolean pitch = true;
@@ -42,12 +46,6 @@ public class FreelookConfig extends Config {
         super(new Mod(FreelookMod.NAME, ModType.UTIL_QOL, "/freelook.svg"), FreelookMod.MODID + ".json");
 
         initialize();
-
-        hideIf("pitch", "snaplook");
-        hideIf("invertPitch", "snaplook");
-        hideIf("lockPitch", "snaplook");
-        hideIf("yaw", "snaplook");
-        hideIf("invertYaw", "snaplook");
 
         addDependency("invertPitch", "pitch");
         addDependency("lockPitch", "pitch");

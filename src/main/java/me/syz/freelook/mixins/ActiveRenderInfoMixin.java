@@ -1,6 +1,6 @@
 package me.syz.freelook.mixins;
 
-import me.syz.freelook.Freelook;
+import me.syz.freelook.hooks.FreelookHook;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import org.objectweb.asm.Opcodes;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ActiveRenderInfoMixin {
     @Redirect(method = "updateRenderInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;rotationPitch:F", opcode = Opcodes.GETFIELD))
     private static float modifyPitch(EntityPlayer player) {
-        return Freelook.INSTANCE.perspectiveToggled ? Freelook.INSTANCE.cameraPitch : player.rotationPitch;
+        return FreelookHook.perspectiveToggled ? FreelookHook.cameraPitch : player.rotationPitch;
     }
 
     @Redirect(method = "updateRenderInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;rotationYaw:F", opcode = Opcodes.GETFIELD))
     private static float modifyYaw(EntityPlayer player) {
-        return Freelook.INSTANCE.perspectiveToggled ? Freelook.INSTANCE.cameraYaw : player.rotationYaw;
+        return FreelookHook.perspectiveToggled ? FreelookHook.cameraYaw : player.rotationYaw;
     }
 }
