@@ -1,5 +1,7 @@
 package me.syz.freelook;
 
+import cc.polyfrost.oneconfig.utils.commands.CommandManager;
+import me.syz.freelook.command.FreelookCommand;
 import me.syz.freelook.config.FreelookConfig;
 import me.syz.freelook.hooks.FreelookHook;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -21,6 +23,7 @@ public class FreelookMod {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
         config = new FreelookConfig();
+        CommandManager.INSTANCE.registerCommand(new FreelookCommand());
 
         MinecraftForge.EVENT_BUS.register(this);
     }
