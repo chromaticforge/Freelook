@@ -12,6 +12,7 @@ public class FreelookHook {
     public static float cameraYaw = 0.0f;
     public static float cameraPitch = 0.0f;
 
+    private static float previousPov = 0;
     private static int previousPerspective = 0;
 
     public static void onPressed(boolean down) {
@@ -38,14 +39,17 @@ public class FreelookHook {
     public static void enterPerspective() {
         perspectiveToggled = true;
 
+        previousPov = mc.gameSettings.fovSetting;
         previousPerspective = mc.gameSettings.thirdPersonView;
 
+        if (FreelookConfig.useFov) mc.gameSettings.fovSetting = FreelookConfig.fov;
         mc.gameSettings.thirdPersonView = FreelookConfig.perspective;
     }
 
     public static void resetPerspective() {
         perspectiveToggled = false;
 
+        mc.gameSettings.fovSetting = previousPov;
         mc.gameSettings.thirdPersonView = previousPerspective;
 
         mc.renderGlobal.setDisplayListEntitiesDirty();
@@ -82,11 +86,12 @@ public class FreelookHook {
 
         cameraPitch += pitch * 0.15f;
 
-        if (FreelookConfig.lockPitch) cameraPitch = Math.max(-90.0f, Math.min(cameraPitch, 90.0f));
+        if (FreelookConfig.pitchLock) cameraPitch = Math.max(-90.0f, Math.min(cameraPitch, 90.0f));
     }
 
     public static float calculateSensitivity() {
         float sensitivity = mc.gameSettings.mouseSensitivity * 0.6f + 0.2f;
+
         return sensitivity * sensitivity * sensitivity * 8.0f;
     }
 }
