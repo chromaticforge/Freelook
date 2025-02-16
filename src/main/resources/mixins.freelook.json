@@ -8,5 +8,8 @@
     "EntityRendererMixin",
     "MinecraftMixin",
     "RenderManagerMixin"
+  ],
+  "mixins": [
+    "ModListMixin"
   ]
 }
