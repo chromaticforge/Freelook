@@ -29,7 +29,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
@@ -38,4 +38,4 @@ jobs:
         path: versions/**/build/libs/
 
     - name: Clean Gradle
-      run: ./gradlew clean
+      run: ./gradlew clean --no-daemon

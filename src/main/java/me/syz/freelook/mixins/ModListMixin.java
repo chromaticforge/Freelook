@@ -1,6 +1,7 @@
 package me.syz.freelook.mixins;
 
 import me.syz.freelook.FreelookMod;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.network.handshake.FMLHandshakeMessage;
 import org.spongepowered.asm.mixin.Mixin;
