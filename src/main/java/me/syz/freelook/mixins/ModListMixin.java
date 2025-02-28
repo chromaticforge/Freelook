@@ -12,12 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(FMLHandshakeMessage.ModList.class)
+@Mixin(FMLHandshakeMessage.ModList.class, remap = false)
 public class ModListMixin {
-    @Shadow(remap = false) private Map<String,String> modTags;
+    @Shadow private Map<String,String> modTags;
 
-    @Inject(method = "<init>(Ljava/util/List;)V", at = @At("RETURN"), remap = false)
+    @Inject(method = "<init>(Ljava/util/List;)V", at = @At("RETURN"))
     private void removeMod(List<ModContainer> modList, CallbackInfo ci) {
-        this.modTags.keySet().removeIf(key -> key.equals(FreelookMod.MODID));
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning())
+            this.modTags.remove(FreelookMod.MODID);
     }
 }
