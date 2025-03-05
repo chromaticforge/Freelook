@@ -1,5 +1,5 @@
 ## Freelook
-TBD
+Allows you to freely look around!
 
 ### Usage
 `/freelook` to open oneconfig gui.
