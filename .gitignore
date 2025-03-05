@@ -35,3 +35,4 @@ bin/
 .vscode/
 
 .DS_Store
+/versions/*/
