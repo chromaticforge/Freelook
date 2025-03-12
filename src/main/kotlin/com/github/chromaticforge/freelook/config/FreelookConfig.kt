@@ -14,7 +14,7 @@ import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
 import com.github.chromaticforge.freelook.Freelook.onPressed
 import com.github.chromaticforge.freelook.FreelookMod
 
-object FreelookConfig : Config(Mod(FreelookMod.NAME, ModType.UTIL_QOL, "/freelook_dark.png"), FreelookMod.MODID + ".json") {
+object FreelookConfig : Config(Mod(FreelookMod.NAME, ModType.UTIL_QOL, "/freelook_dark.svg"), FreelookMod.MODID + ".json") {
     @Info(text = "Freelook functionality is disabled on Hypixel!", type = InfoType.INFO, size = 2)
     var hypixelWarning = false
 
