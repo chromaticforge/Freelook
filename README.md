@@ -6,4 +6,4 @@ Allows you to freely look around!
 
 ---
 
-##### Code licensed under [LGPL](LICENSE), Icon from [Font Awesome](https://fontawesome.com/).
+##### Code licensed under [LGPL](LICENSE).
