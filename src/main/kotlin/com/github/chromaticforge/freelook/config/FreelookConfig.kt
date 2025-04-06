@@ -27,6 +27,9 @@ object FreelookConfig : Config(Mod(FreelookMod.NAME, ModType.UTIL_QOL, "/freeloo
     @Switch(name = "Snaplook")
     var snaplook = false
 
+    @Switch(name = "Hold")
+    var hold = false
+
     @Switch(name = "Invert Pitch (Up and Down)")
     var invertPitch = false
 
