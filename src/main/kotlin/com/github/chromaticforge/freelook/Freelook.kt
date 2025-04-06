@@ -69,7 +69,7 @@ object Freelook {
         cameraYaw += yaw
 
         if (FreelookConfig.invertPitch) pitch = -pitch
-        if (FreelookConfig.lockPitch) pitch = pitch.coerceIn(-90f, 90f)
         cameraPitch += pitch
+        if (FreelookConfig.lockPitch) cameraPitch = cameraPitch.coerceIn(-90f, 90f)
     }
 }
