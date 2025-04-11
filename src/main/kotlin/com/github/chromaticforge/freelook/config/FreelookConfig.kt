@@ -14,21 +14,27 @@ import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
 import com.github.chromaticforge.freelook.Freelook.onPressed
 import com.github.chromaticforge.freelook.FreelookMod
 
-object FreelookConfig : Config(Mod(FreelookMod.NAME, ModType.UTIL_QOL, "/freelook_dark.svg"), FreelookMod.MODID + ".json") {
+object FreelookConfig : Config(
+    Mod(
+        FreelookMod.NAME,
+        ModType.UTIL_QOL,
+        "/freelook_dark.svg"
+    ), FreelookMod.MODID + ".json"
+) {
     @Info(text = "Freelook functionality is disabled on Hypixel!", type = InfoType.INFO, size = 2)
     var hypixelWarning = false
 
-    @KeyBind(name = "Freelook")
+    @KeyBind(name = "Freelook", subcategory = "Controls")
     var keyBind = OneKeyBind(UKeyboard.KEY_LMENU)
+
+    @Switch(name = "Hold", subcategory = "Controls")
+    var hold = false
 
     @Dropdown(name = "Perspective", options = ["First", "Third", "Reverse"])
     var perspective = 1
 
     @Switch(name = "Snaplook")
     var snaplook = false
-
-    @Switch(name = "Hold")
-    var hold = false
 
     @Switch(name = "Invert Pitch (Up and Down)")
     var invertPitch = false

@@ -5,7 +5,11 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main
 import com.github.chromaticforge.freelook.FreelookMod
 import com.github.chromaticforge.freelook.config.FreelookConfig
 
-@Command(value = FreelookMod.MODID, description = "Access the " + FreelookMod.NAME + " GUI.", aliases = ["perspective"])
+@Command(
+    value = FreelookMod.MODID,
+    description = "Access the " + FreelookMod.NAME + " GUI.",
+    aliases = ["perspective"]
+)
 object FreelookCommand {
     @Main
     private fun main() {
