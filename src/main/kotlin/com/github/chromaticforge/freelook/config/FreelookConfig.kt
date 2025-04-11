@@ -24,10 +24,10 @@ object FreelookConfig : Config(
     @Info(text = "Freelook functionality is disabled on Hypixel!", type = InfoType.INFO, size = 2)
     var hypixelWarning = false
 
-    @KeyBind(name = "Freelook")
+    @KeyBind(name = "Freelook", subcategory = "Controls")
     var keyBind = OneKeyBind(UKeyboard.KEY_LMENU)
 
-    @Switch(name = "Hold")
+    @Switch(name = "Hold", subcategory = "Controls")
     var hold = false
 
     @Dropdown(name = "Perspective", options = ["First", "Third", "Reverse"])
