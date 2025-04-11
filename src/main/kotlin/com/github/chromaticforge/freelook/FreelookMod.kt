@@ -34,7 +34,7 @@ object FreelookMod {
     @SubscribeEvent
     fun onWorldLoad(event: WorldEvent.Load) {
         if (Freelook.mc.thePlayer != null && Freelook.mc.theWorld != null) {
-            if (Freelook.perspectiveToggled) {
+            if (perspectiveToggled) {
                 togglePerspective()
             }
         }
@@ -42,9 +42,13 @@ object FreelookMod {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun onTick(event: TickEvent.RenderTickEvent) {
-        if(!FreelookConfig.hold) return
-        if(perspectiveToggled && !FreelookConfig.keyBind.isActive) {
+        if (FreelookConfig.hold && perspectiveToggled && !FreelookConfig.keyBind.isActive) {
             togglePerspective()
         }
+    }
+
+    @SubscribeEvent
+    fun onPerspectiveChange(event: TickEvent) {
+
     }
 }

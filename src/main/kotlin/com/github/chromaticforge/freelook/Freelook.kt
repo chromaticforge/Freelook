@@ -8,9 +8,12 @@ import kotlin.math.pow
 object Freelook {
     val mc: Minecraft = Minecraft.getMinecraft()
 
-    @JvmField var perspectiveToggled = false
-    @JvmField var cameraYaw = 0f
-    @JvmField var cameraPitch = 0f
+    @JvmField
+    var perspectiveToggled = false
+    @JvmField
+    var cameraYaw = 0f
+    @JvmField
+    var cameraPitch = 0f
 
     private var previousPerspective = 0
 
