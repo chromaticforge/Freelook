@@ -1,8 +1,8 @@
 package com.github.chromaticforge.freelook
 
-import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
 import com.github.chromaticforge.freelook.config.FreelookConfig
 import net.minecraft.client.Minecraft
+import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
 import kotlin.math.pow
 
 object Freelook {
@@ -33,14 +33,22 @@ object Freelook {
 
     @JvmStatic
     fun togglePerspective() {
-        if (perspectiveToggled) {
-            mc.gameSettings.thirdPersonView = previousPerspective
-            mc.renderGlobal.setDisplayListEntitiesDirty()
-        } else {
+        setPerspective(!perspectiveToggled)
+    }
+
+    @JvmStatic
+    fun setPerspective(enabled: Boolean) {
+        if (perspectiveToggled == enabled) return
+
+        if (enabled) {
             previousPerspective = mc.gameSettings.thirdPersonView
             mc.gameSettings.thirdPersonView = FreelookConfig.perspective
+        } else {
+            mc.gameSettings.thirdPersonView = previousPerspective
+            mc.renderGlobal.setDisplayListEntitiesDirty()
         }
-        perspectiveToggled = !perspectiveToggled
+
+        perspectiveToggled = enabled
     }
 
     @JvmStatic
@@ -48,7 +56,7 @@ object Freelook {
         if (mc.inGameHasFocus) {
             if (!perspectiveToggled) return true
 
-            if (HypixelUtils.INSTANCE.isHypixel || FreelookConfig.snaplook) {
+            if (HypixelUtils.isHypixel() || FreelookConfig.snaplook) {
                 cameraYaw = mc.thePlayer.rotationYaw
                 cameraPitch = mc.thePlayer.rotationPitch
                 return true

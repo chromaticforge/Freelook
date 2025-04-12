@@ -1,18 +1,12 @@
 package com.github.chromaticforge.freelook.command
 
-import cc.polyfrost.oneconfig.utils.commands.annotations.Command
-import cc.polyfrost.oneconfig.utils.commands.annotations.Main
 import com.github.chromaticforge.freelook.FreelookMod
-import com.github.chromaticforge.freelook.config.FreelookConfig
+import org.polyfrost.oneconfig.api.commands.v1.factories.annotated.Command
 
-@Command(
-    value = FreelookMod.MODID,
-    description = "Access the " + FreelookMod.NAME + " GUI.",
-    aliases = ["perspective"]
-)
+@Command(value = [FreelookMod.ID, "perspective"])
 object FreelookCommand {
-    @Main
+    @Command
     private fun main() {
-        FreelookConfig.openGui()
+        // FreelookConfig.openGui()
     }
 }

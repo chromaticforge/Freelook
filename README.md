@@ -1,3 +1,6 @@
+## Branch info
+This is to start updating to OneConfig V1.
+
 ## Freelook
 Allows you to freely look around!
 

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "authors": [
+    "chromaticforge", "femmeromantic"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/project/freelook-oneconfig",
+    "issues": "https://github.com/chromaticforge/freelook/issues",
+    "sources": "https://github.com/chromaticforge/freelook"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.github.chromaticforge.freelook.FreelookMod"
+      }
+    ]
+  },
+  "mixins": [
+    "mixins.freelook.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "fabric-language-kotlin": "*"
+  }
+}
