@@ -63,9 +63,5 @@ object FreelookConfig : Config(
         hideIf("invertPitch") { snaplook || HypixelUtils.isHypixel() }
         hideIf("lockPitch") { snaplook || HypixelUtils.isHypixel() }
         hideIf("invertYaw") { snaplook || HypixelUtils.isHypixel() }
-
-        addDependency("invertPitch", "pitch")
-        addDependency("lockPitch", "pitch")
-        addDependency("invertYaw", "yaw")
     }
 }
