@@ -1,15 +1,17 @@
-package com.github.chromaticforge.freelook.hook
+package com.github.chromaticforge.freelook.client.hook
 
-import cc.polyfrost.oneconfig.utils.dsl.mc
-import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
-import com.github.chromaticforge.freelook.config.FreelookConfig
+import com.github.chromaticforge.freelook.client.config.FreelookConfig
+import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
+import org.polyfrost.oneconfig.utils.v1.dsl.mc
 import kotlin.math.pow
 
 object FreelookHook {
     @JvmField
     var perspectiveToggled = false
+
     @JvmField
     var cameraYaw = 0f
+
     @JvmField
     var cameraPitch = 0f
 
@@ -47,7 +49,7 @@ object FreelookHook {
         if (mc.inGameHasFocus) {
             if (!perspectiveToggled) return true
 
-            if (HypixelUtils.INSTANCE.isHypixel || FreelookConfig.snaplook) {
+            if (HypixelUtils.isHypixel() || FreelookConfig.snaplook) {
                 cameraYaw = mc.thePlayer.rotationYaw
                 cameraPitch = mc.thePlayer.rotationPitch
                 return true

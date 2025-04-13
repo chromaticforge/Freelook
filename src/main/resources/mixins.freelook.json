@@ -1,8 +1,8 @@
 {
   "compatibilityLevel": "JAVA_8",
-  "minVersion": "0.7",
+  "minVersion": "0.8",
   "package": "com.github.chromaticforge.freelook.mixins",
-  "refmap": "mixins.${id}.refmap.json",
+  "refmap": "mixins.${mod_id}.refmap.json",
   "client": [
     "ActiveRenderInfoMixin",
     "EntityRendererMixin",
