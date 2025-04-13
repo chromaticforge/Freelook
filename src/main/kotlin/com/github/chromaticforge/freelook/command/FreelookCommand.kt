@@ -6,7 +6,7 @@ import com.github.chromaticforge.freelook.FreelookMod
 import com.github.chromaticforge.freelook.config.FreelookConfig
 
 @Command(
-    value = FreelookMod.MODID,
+    value = FreelookMod.ID,
     description = "Access the " + FreelookMod.NAME + " GUI.",
     aliases = ["perspective"]
 )

@@ -1,54 +1,76 @@
 package com.github.chromaticforge.freelook
 
-import cc.polyfrost.oneconfig.utils.commands.CommandManager
-import com.github.chromaticforge.freelook.Freelook.perspectiveToggled
-import com.github.chromaticforge.freelook.Freelook.togglePerspective
-import com.github.chromaticforge.freelook.command.FreelookCommand
-import com.github.chromaticforge.freelook.config.FreelookConfig
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
+
+import cc.polyfrost.oneconfig.events.EventManager
+import cc.polyfrost.oneconfig.events.event.RenderEvent
+import cc.polyfrost.oneconfig.events.event.TickEvent
+import cc.polyfrost.oneconfig.events.event.WorldLoadEvent
+
+import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
+import cc.polyfrost.oneconfig.libs.universal.UMinecraft
+
+import cc.polyfrost.oneconfig.utils.commands.CommandManager
+
+import com.github.chromaticforge.freelook.hook.FreelookHook.perspectiveToggled
+import com.github.chromaticforge.freelook.hook.FreelookHook.togglePerspective
+import com.github.chromaticforge.freelook.command.FreelookCommand
+import com.github.chromaticforge.freelook.config.FreelookConfig
+import com.github.chromaticforge.freelook.hook.FreelookHook.setPerspective
 
 @Mod(
-    modid = FreelookMod.MODID,
+    modid = FreelookMod.ID,
     name = FreelookMod.NAME,
     version = FreelookMod.VERSION,
     modLanguageAdapter = "cc.polyfrost.oneconfig.utils.KotlinLanguageAdapter"
 )
 object FreelookMod {
-    const val MODID: String = "@ID@"
+    const val ID: String = "@ID@"
     const val NAME: String = "@NAME@"
     const val VERSION: String = "@VER@"
 
-    @Mod.EventHandler
-    fun onInit(event: FMLInitializationEvent?) {
+    val mc = UMinecraft.getMinecraft()
+
+    private fun initialize() {
         FreelookConfig
         CommandManager.INSTANCE.registerCommand(FreelookCommand)
-        MinecraftForge.EVENT_BUS.register(this)
+        EventManager.INSTANCE.register(this)
     }
 
-    @SubscribeEvent
-    fun onWorldLoad(event: WorldEvent.Load) {
-        if (Freelook.mc.thePlayer != null && Freelook.mc.theWorld != null) {
+    private var lastPressed = false
+
+    @Subscribe
+    fun onTick(event: TickEvent) {
+        val active = FreelookConfig.keyBind.isActive
+        if (active != lastPressed && FreelookConfig.mode == 0 && FreelookConfig.enabled) {
+            lastPressed = active
+            setPerspective(active)
+        }
+    }
+
+    @Subscribe
+    fun onWorldLoad(event: WorldLoadEvent) {
+        if (mc.thePlayer != null && mc.theWorld != null) {
             if (perspectiveToggled) {
                 togglePerspective()
             }
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun onTick(event: TickEvent.RenderTickEvent) {
-        if (FreelookConfig.hold && perspectiveToggled && !FreelookConfig.keyBind.isActive) {
+    @Subscribe
+    fun onRender(event: RenderEvent) {
+        if (FreelookConfig.mode == 0 && perspectiveToggled && !FreelookConfig.keyBind.isActive) {
+            togglePerspective()
+        }
+
+        if (!FreelookConfig.enabled) {
             togglePerspective()
         }
     }
 
-    @SubscribeEvent
-    fun onPerspectiveChange(event: TickEvent) {
-
+    @Mod.EventHandler
+    fun onInit(event: FMLInitializationEvent) {
+        initialize()
     }
 }
