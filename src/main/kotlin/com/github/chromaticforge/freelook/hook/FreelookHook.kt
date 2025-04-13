@@ -1,16 +1,24 @@
 package com.github.chromaticforge.freelook.hook
 
+import cc.polyfrost.oneconfig.utils.dsl.mc
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
-import com.github.chromaticforge.freelook.FreelookMod.mc
 import com.github.chromaticforge.freelook.config.FreelookConfig
 import kotlin.math.pow
 
 object FreelookHook {
-    @JvmField var perspectiveToggled = false
-    @JvmField var cameraYaw = 0f
-    @JvmField var cameraPitch = 0f
+    @JvmField
+    var perspectiveToggled = false
+    @JvmField
+    var cameraYaw = 0f
+    @JvmField
+    var cameraPitch = 0f
 
     private var previousPerspective = 0
+
+    @JvmStatic
+    fun togglePerspective() {
+        setPerspective(!perspectiveToggled)
+    }
 
     @JvmStatic
     fun setPerspective(enabled: Boolean) {
@@ -32,11 +40,6 @@ object FreelookHook {
         } else {
             perspectiveToggled = false
         }
-    }
-
-    @JvmStatic
-    fun togglePerspective() {
-        setPerspective(!perspectiveToggled)
     }
 
     @JvmStatic

@@ -11,15 +11,15 @@ import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
-import com.github.chromaticforge.freelook.FreelookMod
+import com.github.chromaticforge.freelook.Constants
 import com.github.chromaticforge.freelook.hook.FreelookHook
 
 object FreelookConfig : Config(
     Mod(
-        FreelookMod.NAME,
+        Constants.NAME,
         ModType.UTIL_QOL,
-        "/assets/freelook/icon.svg"
-    ), FreelookMod.ID + ".json"
+        "/assets/${Constants.ID}/icon.svg"
+    ), Constants.ID + ".json"
 ) {
 
     // General
