@@ -1,6 +1,9 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
 
+import com.modrinth.minotaur.dependencies.DependencyType
+import com.modrinth.minotaur.dependencies.ModDependency
 import dev.deftu.gradle.utils.GameSide
+import dev.deftu.gradle.utils.VersionType
 
 plugins {
     java
@@ -11,6 +14,7 @@ plugins {
     id("dev.deftu.gradle.tools.bloom")
     id("dev.deftu.gradle.tools.shadow")
     id("dev.deftu.gradle.tools.minecraft.loom")
+    id("dev.deftu.gradle.tools.minecraft.releases")
 }
 
 repositories {
@@ -36,4 +40,21 @@ toolkitLoomHelper {
     useDevAuth("1.2.1")
     useProperty("mixin.debug.export", "true", GameSide.CLIENT)
     disableRunConfigs(GameSide.SERVER)
+}
+
+toolkitReleases {
+    versionType = VersionType.RELEASE
+
+    // DEFTUUUUU
+    // why doesnt this work :(
+    val changelog = rootProject.file("changelogs/${project.version}.md")
+
+    if (changelog.exists()) {
+        changelogFile.set(changelog)
+    }
+
+    modrinth {
+        projectId.set("freelook-oneconfig")
+        dependencies.add(ModDependency("oneconfig", DependencyType.EMBEDDED))
+    }
 }

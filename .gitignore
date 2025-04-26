@@ -2,5 +2,6 @@
 .idea/
 build/
 versions/*/
+.kotlin/
 
 .DS_Store
