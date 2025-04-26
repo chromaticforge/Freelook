@@ -1,7 +1,7 @@
 package com.github.chromaticforge.freelook
 
 object Constants {
-    const val ID: String = "@ID@"
-    const val NAME: String = "@NAME@"
-    const val VERSION: String = "@VER@"
+    const val ID = "@MOD_ID@"
+    const val NAME = "@MOD_NAME@"
+    const val VERSION = "@MOD_VERSION@"
 }
