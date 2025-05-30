@@ -45,9 +45,7 @@ toolkitLoomHelper {
 toolkitReleases {
     versionType = VersionType.RELEASE
 
-    // DEFTUUUUU
-    // why doesnt this work :(
-    val changelog = rootProject.file("changelogs/${project.version}.md")
+    val changelog = rootProject.file("changelogs/${modData.version}.md")
 
     if (changelog.exists()) {
         changelogFile.set(changelog)

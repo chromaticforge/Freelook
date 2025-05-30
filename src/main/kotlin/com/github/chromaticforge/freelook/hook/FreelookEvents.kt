@@ -16,7 +16,7 @@ object FreelookEvents {
     @Subscribe
     fun onTick(event: TickEvent) {
         val active = FreelookConfig.keyBind.isActive
-        if (active != lastPressed && FreelookConfig.mode == 0 && FreelookConfig.enabled) {
+        if (active != lastPressed && FreelookConfig.mode && FreelookConfig.enabled) {
             lastPressed = active
             setPerspective(active)
         }
@@ -33,7 +33,7 @@ object FreelookEvents {
 
     @Subscribe
     fun onRender(event: RenderEvent) {
-        if (FreelookConfig.mode == 0 && perspectiveToggled && !FreelookConfig.keyBind.isActive) {
+        if (FreelookConfig.mode && perspectiveToggled && !FreelookConfig.keyBind.isActive) {
             togglePerspective()
         }
 

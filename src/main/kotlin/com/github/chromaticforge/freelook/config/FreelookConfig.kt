@@ -2,6 +2,7 @@ package com.github.chromaticforge.freelook.config
 
 import cc.polyfrost.oneconfig.config.Config
 import cc.polyfrost.oneconfig.config.annotations.Dropdown
+import cc.polyfrost.oneconfig.config.annotations.DualOption
 import cc.polyfrost.oneconfig.config.annotations.Info
 import cc.polyfrost.oneconfig.config.annotations.KeyBind
 import cc.polyfrost.oneconfig.config.annotations.Switch
@@ -22,48 +23,57 @@ object FreelookConfig : Config(
     ), Constants.ID + ".json"
 ) {
 
-    // General
+    // None
 
     @Info(text = "Freelook functionality is disabled on Hypixel!", type = InfoType.INFO, size = 2)
     var hypixelWarning = false
 
-    @Dropdown(name = "Perspective", options = ["First", "Third", "Reverse"])
-    var perspective = 1
-
-    @Switch(name = "Snaplook")
-    var snaplook = false
-
-    @Switch(name = "Invert Pitch (Up and Down)")
-    var invertPitch = false
-
-    @Switch(name = "Pitch Lock")
-    var lockPitch = true
-
-    @Switch(name = "Invert Yaw (Left and Right)")
-    var invertYaw = false
-
-    // General
+    // None
 
     // Controls
 
     @KeyBind(name = "Freelook", subcategory = "Controls")
     var keyBind = OneKeyBind(UKeyboard.KEY_LMENU)
 
-    // TODO: Add "both" option that will toggle if pressed quickly and will hold if held
-    @Dropdown(name = "Freelook Mode", options = ["Hold", "Toggle"], subcategory = "Controls")
-    var mode = 0
+//    // TODO: Add "both" option that will toggle if pressed quickly and will hold if held
+//    @Dropdown(name = "Freelook Mode", options = ["Hold", "Toggle"], subcategory = "Controls")
+//    var mode = 0
 
-    // Controls
+    @DualOption(name = "Control Mode", left = "Hold", right = "Toggle", subcategory = "Controls")
+    var mode = true
+
+    // General
+
+    @Dropdown(name = "Perspective", options = ["First", "Third", "Reverse"], subcategory = "General")
+    var perspective = 1
+
+    @DualOption(name = "Freelook Mode", left = "Freelook", right = "Snaplook", subcategory = "General")
+    var freelook = false
+
+    @Switch(name = "Invert Pitch (Up and Down)", subcategory = "General")
+    var invertPitch = false
+
+    @Switch(name = "Pitch Lock", subcategory = "General")
+    var lockPitch = true
+
+    @Switch(name = "Invert Yaw (Left and Right)", subcategory = "General")
+    var invertYaw = false
+
+    // General
+
+    // Camera
+    @Switch(name = "Smooth Change", subcategory = "Camera")
+    var smoothCamera = true
 
     init {
         initialize()
 
-        registerKeyBind(keyBind) { if (mode == 1) FreelookHook.togglePerspective() }
+        registerKeyBind(keyBind) { if (!mode) FreelookHook.togglePerspective() }
 
         hideIf("hypixelWarning") { !HypixelUtils.INSTANCE.isHypixel }
-        hideIf("invertPitch") { snaplook || HypixelUtils.INSTANCE.isHypixel }
-        hideIf("lockPitch") { snaplook || HypixelUtils.INSTANCE.isHypixel }
-        hideIf("invertYaw") { snaplook || HypixelUtils.INSTANCE.isHypixel }
+        hideIf("invertPitch") { freelook || HypixelUtils.INSTANCE.isHypixel }
+        hideIf("lockPitch") { freelook || HypixelUtils.INSTANCE.isHypixel }
+        hideIf("invertYaw") { freelook || HypixelUtils.INSTANCE.isHypixel }
 
         addDependency("invertPitch", "pitch")
         addDependency("lockPitch", "pitch")

@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ActiveRenderInfo.class)
 public class ActiveRenderInfoMixin {
+
     @Redirect(method = "updateRenderInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;rotationPitch:F", opcode = Opcodes.GETFIELD))
     private static float modifyPitch(EntityPlayer player) {
         return FreelookHook.perspectiveToggled ? FreelookHook.cameraPitch : player.rotationPitch;
@@ -19,4 +20,5 @@ public class ActiveRenderInfoMixin {
     private static float modifyYaw(EntityPlayer player) {
         return FreelookHook.perspectiveToggled ? FreelookHook.cameraYaw : player.rotationYaw;
     }
+
 }

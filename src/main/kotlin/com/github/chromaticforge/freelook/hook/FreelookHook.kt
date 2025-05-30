@@ -2,10 +2,14 @@ package com.github.chromaticforge.freelook.hook
 
 import cc.polyfrost.oneconfig.utils.dsl.mc
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
+import com.github.chromaticforge.freelook.EaseInExpoTimer
 import com.github.chromaticforge.freelook.config.FreelookConfig
 import kotlin.math.pow
 
 object FreelookHook {
+    @JvmField
+    val timer = EaseInExpoTimer(650L)
+
     @JvmField
     var perspectiveToggled = false
     @JvmField
@@ -31,9 +35,13 @@ object FreelookHook {
             if (enabled) {
                 previousPerspective = mc.gameSettings.thirdPersonView
                 mc.gameSettings.thirdPersonView = FreelookConfig.perspective
+
+                if (FreelookConfig.smoothCamera) timer.start()
+
             } else {
                 mc.gameSettings.thirdPersonView = previousPerspective
                 mc.renderGlobal.setDisplayListEntitiesDirty()
+                timer.stop()
             }
 
             perspectiveToggled = enabled
@@ -47,7 +55,7 @@ object FreelookHook {
         if (mc.inGameHasFocus) {
             if (!perspectiveToggled) return true
 
-            if (HypixelUtils.INSTANCE.isHypixel || FreelookConfig.snaplook) {
+            if (HypixelUtils.INSTANCE.isHypixel || FreelookConfig.freelook) {
                 cameraYaw = mc.thePlayer.rotationYaw
                 cameraPitch = mc.thePlayer.rotationPitch
                 return true
