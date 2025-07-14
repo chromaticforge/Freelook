@@ -16,18 +16,18 @@ plugins {
 
 toolkitLoomHelper {
     useOneConfig {
-        version = "1.0.0-alpha.77"
-        loaderVersion = "1.1.0-alpha.44"
+        version = "1.0.0-alpha.115"
+        loaderVersion = "1.1.0-alpha.48"
 
         usePolyMixin = true
-        polyMixinVersion = "0.8.4+build.2"
-
-        applyLoaderTweaker = true
+        polyMixinVersion = "0.8.4+build.6"
 
         for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils")) {
             +module
         }
     }
+
+    useTweaker("org.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
 
     useDevAuth("1.2.1")
     useMixinExtras("0.4.1")

@@ -8,6 +8,7 @@ import com.github.chromaticforge.freelook.client.config.FreelookConfig
 import com.github.chromaticforge.freelook.client.hook.FreelookEvents
 import org.polyfrost.oneconfig.api.commands.v1.CommandManager
 import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker
 
 @Mod(
     modid = FreelookConstants.ID,
