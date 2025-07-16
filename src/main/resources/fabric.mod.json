@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${mod_version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "authors": [
+        "chromaticforge", "femmeromantic"
+    ],
+    "contributors": [
+        "Tellinq"
+    ],
+    "icon": "assets/${mod_id}/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            {
+                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
+            }
+        ],
+        "client": [
+            {
+                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
+            }
+        ],
+        "server": [
+            {
+                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
+            }
+        ]
+    },
+    "mixins": [
+        "mixins.${mod_id}.json"
+    ],
+    "depends": {
+        "minecraft": "~${minor_mc_version}",
+        "fabricloader": ">=0.15.11"
+    }
+}

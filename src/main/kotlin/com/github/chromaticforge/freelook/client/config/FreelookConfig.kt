@@ -1,67 +1,121 @@
 package com.github.chromaticforge.freelook.client.config
 
 import com.github.chromaticforge.freelook.FreelookConstants
-import com.github.chromaticforge.freelook.client.hook.FreelookHook
+import com.github.chromaticforge.freelook.client.FreelookController
+import dev.deftu.omnicore.client.OmniKeyboard
 import org.polyfrost.oneconfig.api.config.v1.Config
-import org.polyfrost.oneconfig.api.config.v1.annotations.Dropdown
-import org.polyfrost.oneconfig.api.config.v1.annotations.Info
+import org.polyfrost.oneconfig.api.config.v1.annotations.Accordion
+import org.polyfrost.oneconfig.api.config.v1.annotations.Include
 import org.polyfrost.oneconfig.api.config.v1.annotations.Keybind
+import org.polyfrost.oneconfig.api.config.v1.annotations.RadioButton
 import org.polyfrost.oneconfig.api.config.v1.annotations.Switch
-import org.polyfrost.oneconfig.api.hypixel.v1.HypixelUtils
+import org.polyfrost.oneconfig.api.config.v1.annotations.Number
+import org.polyfrost.oneconfig.api.ui.v1.keybind.KeybindManager
 import org.polyfrost.polyui.input.KeyBinder
+import org.polyfrost.polyui.input.KeybindHelper
 
 object FreelookConfig : Config(
     "${ FreelookConstants.ID }.json",
+    "assets/${ FreelookConstants.ID }/icon.svg",
     FreelookConstants.NAME,
     Category.QOL
 ) {
 
-    // General
+    @RadioButton(
+        title = "Change Perspective",
+        description = "Which perspective should make Freelook/Snaplook start in a different perspective",
+        options = ["Never", "First Person Only", "Third Person Only", "Always"]
+    )
+    var changePerspective: Int = 1
 
-    @Info(title = "Warning", description = "Freelook is disabled on Hypixel!")
-    var hypixelWarning = false
+    @RadioButton(
+        title = "Starting Perspective",
+        description = "Which camera perspective to start if changed",
+        options = ["First Person", "Third Person (Back)", "Third Person (Front)"]
+    )
+    var perspectiveMode: Int = 1
 
-    @Dropdown(title = "Perspective", options = ["First", "Third", "Reverse"])
-    var perspective = 1
+    @Accordion(title = "Activation")
+    object Activation {
 
-    @Switch(title = "Snaplook")
-    var snaplook = false
+        @RadioButton(
+            title = "Activation Mode",
+            description = "Whether you can hold, quick press, or toggle to activate",
+            options = ["Hold", "Quick Press", "Toggle"],
+            subcategory = "Activation"
+        )
+        var pressMode: Int = 1
 
-    @Switch(title = "Invert Pitch (Up and Down)")
-    var invertPitch = false
-
-    @Switch(title = "Pitch Lock")
-    var lockPitch = true
-
-    @Switch(title = "Invert Yaw (Left and Right)")
-    var invertYaw = false
-
-    // General
-
-    // Controls
-
-    @Keybind(title = "Freelook", subcategory = "Controls")
-    var keyBind = KeyBinder.Bind('f') {
-        if (FreelookHook.perspectiveToggled) {
-            if (mode == 0 /* HOLD */) {
-                FreelookHook.setPerspective(it)
-            } else {
-                FreelookHook.togglePerspective()
-            }
-        }
-        false
+        @Number(
+            title = "Hold threshold",
+            description = "How long you can hold before FreeLook/Snaplook is disabled upon release",
+            unit = "ms",
+            min = 0f,
+            max = Float.MAX_VALUE,
+            subcategory = "Activation"
+        )
+        var holdThreshold: Long = 300
     }
 
-    // TODO: Add "both" option that will toggle if pressed quickly and will hold if held
-    @Dropdown(title = "Freelook Mode", options = ["Hold", "Toggle"], subcategory = "Controls")
-    var mode = 0
+    open class MovementConfig {
+        @Include
+        var enabled: Boolean = true
 
-    // Controls
+        @Switch(title = "Invert")
+        var invert: Boolean = false
+    }
+
+    @Accordion(title = "Pitch Movement", index = 2)
+    object Pitch : MovementConfig() {
+        @Switch(title = "Lock")
+        var lock: Boolean = true
+    }
+
+    @Accordion(title = "Yaw Movement", index = 2)
+    object Yaw : MovementConfig() {
+        @Switch(title = "Lock")
+        var lock: Boolean = false
+    }
+
+    @JvmField
+    @Switch(title = "Add to Perspective Cycle", description = "Add Freelook/Snaplook as part of the perspective cycle")
+    var addToCameraCycle: Boolean = false
+
+    @JvmField
+    @RadioButton(
+        title = "On Perspective Cycle Change",
+        description = "How should Freelook/Snaplook behave when on a perspective cycle change?",
+        options = ["Don't change FreeLook state", "Stop FreeLook", "Block Cycle Change"]
+    )
+    var onCycleChange: Int = 1
+
+    @Switch(title = "Smooth Camera", description = "Animate third person when Freelook/Snaplook is enabled")
+    var smoothCamera: Boolean = false
+
+    @Switch(title = "Snaplook", description = "Use a built in perspective instead. This will be forcefully enabled on Hypixel.")
+    var snaplook: Boolean = false
+
+    @Keybind(title = "Freelook Keybind")
+    var freelookbind: KeyBinder.Bind = KeybindHelper.builder()
+        .keys(OmniKeyboard.KEY_F)
+        .does{ pressed ->
+            when (Activation.pressMode) {
+                1 -> FreelookController.handlePressAndHold(pressed)
+                2 -> if (pressed) FreelookController.toggleFreeLooking()
+                else -> {
+                    if (pressed) {
+                        FreelookController.startFreeLooking()
+                    } else {
+                        FreelookController.stopFreeLooking()
+                    }
+                }
+            }
+            pressed
+        }
+        .build()
 
     init {
-        hideIf("hypixelWarning") { !HypixelUtils.isHypixel() }
-        hideIf("invertPitch") { snaplook || HypixelUtils.isHypixel() }
-        hideIf("lockPitch") { snaplook || HypixelUtils.isHypixel() }
-        hideIf("invertYaw") { snaplook || HypixelUtils.isHypixel() }
+        initialize(true)
+        KeybindManager.registerKeybind(freelookbind)
     }
 }

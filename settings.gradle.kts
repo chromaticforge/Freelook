@@ -35,9 +35,56 @@ val projectName: String = extra["mod.name"]?.toString()
 rootProject.name = projectName
 rootProject.buildFileName = "root.gradle.kts"
 
+// Adds all of our build target versions to the classpath if we need to add version-specific code.
+// Update this list if you want to remove/add a version and/or mod loader.
+// The format is: version-modloader (f.ex: 1.8.9-forge, 1.17.1-fabric, etc)
+// **REMEMBER TO ALSO UPDATE THE `root.gradle.kts` FILE WITH THE NEW VERSION(S).
 listOf(
     "1.8.9-forge",
-    "1.12.2-forge"
+    "1.8.9-fabric",
+
+    "1.12.2-forge",
+    "1.12.2-fabric",
+
+    "1.16.5-forge",
+    "1.16.5-fabric",
+
+    "1.17.1-forge",
+    "1.17.1-fabric",
+
+    "1.18.2-forge",
+    "1.18.2-fabric",
+
+    "1.19.2-forge",
+    "1.19.2-fabric",
+
+    "1.19.4-forge",
+    "1.19.4-fabric",
+
+    "1.20.1-forge",
+    "1.20.1-fabric",
+
+    "1.20.4-forge",
+    "1.20.4-neoforge",
+    "1.20.4-fabric",
+
+    "1.20.6-neoforge",
+    "1.20.6-fabric",
+
+    "1.21.1-neoforge",
+    "1.21.1-fabric",
+
+    "1.21.2-neoforge",
+    "1.21.2-fabric",
+
+    "1.21.3-neoforge",
+    "1.21.3-fabric",
+
+    "1.21.4-neoforge",
+    "1.21.4-fabric",
+
+    "1.21.5-neoforge",
+    "1.21.5-fabric"
 ).forEach { version ->
     include(":$version")
     project(":$version").apply {
