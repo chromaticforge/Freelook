@@ -17,12 +17,12 @@ object CameraCycleHandler {
         if (FreelookConfig.addToCameraCycle) {
             if (hasCycledFreelook) {
                 hasCycledFreelook = false
-                FreelookController.stopFreeLooking()
+                FreelookController.stop()
             } else if (
                 PerspectiveManager.getCurrentPerspective() ==
                 PerspectiveManager.getMaximumPerspectiveIndex()
             ) {
-                FreelookController.startFreeLooking()
+                FreelookController.start()
                 hasCycledFreelook = true
                 return false
             }

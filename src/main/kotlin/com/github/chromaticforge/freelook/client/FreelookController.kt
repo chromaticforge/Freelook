@@ -18,26 +18,26 @@ object FreelookController {
     fun handlePressAndHold(pressed: Boolean) {
         if (pressed && pressStartTime == 0L) {
             pressStartTime = System.currentTimeMillis()
-            toggleFreeLooking()
+            toggle()
         } else {
             val pressDuration = System.currentTimeMillis() - pressStartTime
             pressStartTime = 0L
 
             if (pressDuration > FreelookConfig.Activation.holdThreshold) {
-                stopFreeLooking()
+                stop()
             }
         }
     }
 
-    fun toggleFreeLooking() {
+    fun toggle() {
         if (perspectiveToggled) {
-            stopFreeLooking()
+            stop()
         } else {
-            startFreeLooking()
+            start()
         }
     }
 
-    fun startFreeLooking() {
+    fun start() {
         val currentPerspective = PerspectiveManager.getCurrentPerspective()
         if (currentPerspective != lastPerspective) {
             lastPerspective = currentPerspective
@@ -68,7 +68,7 @@ object FreelookController {
         perspectiveToggled = true
     }
 
-    fun stopFreeLooking() {
+    fun stop() {
         perspectiveToggled = false
         PerspectiveManager.setPerspective(lastPerspective)
         timer.finishNow()

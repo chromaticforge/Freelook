@@ -3,6 +3,7 @@ package com.github.chromaticforge.freelook.client.config
 import com.github.chromaticforge.freelook.FreelookConstants
 import com.github.chromaticforge.freelook.client.FreelookController
 import dev.deftu.omnicore.client.OmniKeyboard
+import dev.deftu.omnicore.client.OmniScreen
 import org.polyfrost.oneconfig.api.config.v1.Config
 import org.polyfrost.oneconfig.api.config.v1.annotations.Accordion
 import org.polyfrost.oneconfig.api.config.v1.annotations.Include
@@ -48,7 +49,7 @@ object FreelookConfig : Config(
 
         @Number(
             title = "Hold threshold",
-            description = "How long you can hold before FreeLook/Snaplook is disabled upon release",
+            description = "How long you can hold before Freelook/Snaplook is disabled upon release",
             unit = "ms",
             min = 0f,
             max = Float.MAX_VALUE,
@@ -85,7 +86,7 @@ object FreelookConfig : Config(
     @RadioButton(
         title = "On Perspective Cycle Change",
         description = "How should Freelook/Snaplook behave when on a perspective cycle change?",
-        options = ["Don't change FreeLook state", "Stop FreeLook", "Block Cycle Change"]
+        options = ["Don't change Freelook state", "Stop Freelook", "Block Cycle Change"]
     )
     var onCycleChange: Int = 1
 
@@ -96,26 +97,28 @@ object FreelookConfig : Config(
     var snaplook: Boolean = false
 
     @Keybind(title = "Freelook Keybind")
-    var freelookbind: KeyBinder.Bind = KeybindHelper.builder()
+    var keybind: KeyBinder.Bind = KeybindHelper.builder()
         .keys(OmniKeyboard.KEY_F)
         .does{ pressed ->
+            if (OmniScreen.isInScreen) {
+                return@does
+            }
             when (Activation.pressMode) {
                 1 -> FreelookController.handlePressAndHold(pressed)
-                2 -> if (pressed) FreelookController.toggleFreeLooking()
+                2 -> if (pressed) FreelookController.toggle()
                 else -> {
-                    if (pressed) {
-                        FreelookController.startFreeLooking()
-                    } else {
-                        FreelookController.stopFreeLooking()
+                    if (pressed && !FreelookController.perspectiveToggled) {
+                        FreelookController.start()
+                    } else if (!pressed && FreelookController.perspectiveToggled) {
+                        FreelookController.stop()
                     }
                 }
             }
-            pressed
         }
         .build()
 
     init {
         initialize(true)
-        KeybindManager.registerKeybind(freelookbind)
+        KeybindManager.registerKeybind(keybind)
     }
 }
