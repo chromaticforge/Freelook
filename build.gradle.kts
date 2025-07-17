@@ -16,11 +16,13 @@ plugins {
 
 toolkitLoomHelper {
     useOneConfig {
-        version = "1.0.0-alpha.115"
+        version = "1.0.0-alpha.116"
         loaderVersion = "1.1.0-alpha.48"
 
         usePolyMixin = true
         polyMixinVersion = "0.8.4+build.6"
+
+        applyLoaderTweaker = true
 
         for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils")) {
             +module
@@ -40,15 +42,5 @@ toolkitLoomHelper {
 
     if (mcData.isForge) {
         useForgeMixin(modData.id)
-    }
-}
-
-dependencies {
-    if (mcData.isFabric) {
-        if (mcData.isLegacyFabric) {
-            modImplementation("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:${mcData.dependencies.legacyFabric.legacyFabricApiVersion}")
-        } else {
-            modImplementation("net.fabricmc.fabric-api:fabric-api:${mcData.dependencies.fabric.fabricApiVersion}")
-        }
     }
 }

@@ -2,7 +2,7 @@
   {
     "modid": "${mod_id}",
     "name": "${mod_name}",
-    "description": "Allows you to freely look around!",
+    "description": "${mod_description}",
     "version": "${mod_version}",
     "mcversion": "${mc_version}",
     "url": "https://modrinth.com/project/freelook-oneconfig",

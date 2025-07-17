@@ -1,11 +1,16 @@
 {
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "${java_version}",
   "minVersion": "0.8",
-  "package": "com.github.chromaticforge.freelook.mixins",
+  "package": "com.github.chromaticforge.freelook.client.mixin",
   "refmap": "mixins.${mod_id}.refmap.json",
+  "injectors": {
+    "maxShiftBy": 5
+  },
   "client": [
-    "ActiveRenderInfoMixin",
-    "EntityRendererMixin",
-    "MinecraftMixin"
-  ]
+    "Mixin_Camera_Rotation",
+    "Mixin_Entity_CameraOverride",
+    "Mixin_EntityRenderer",
+    "Mixin_MinecraftClient_CameraCycle"
+  ],
+  "verbose": true
 }
