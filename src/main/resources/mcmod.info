@@ -6,7 +6,7 @@
     "version": "${mod_version}",
     "mcversion": "${mc_version}",
     "url": "https://modrinth.com/project/freelook-oneconfig",
-    "logoFile": "assets/freelook/icon.png",
+    "logoFile": "assets/${mod_id}/icon.png",
     "authorList": [
       "chromaticforge", "femmeromantic"
     ]

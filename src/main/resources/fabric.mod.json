@@ -5,7 +5,7 @@
     "name": "${mod_name}",
     "description": "${mod_description}",
     "authors": [
-        "chromaticforge", "femmeromantic"
+        "chromaticforge", "awruff"
     ],
     "contributors": [
         "Tellinq"
@@ -13,19 +13,10 @@
     "icon": "assets/${mod_id}/icon.png",
     "environment": "*",
     "entrypoints": {
-        "main": [
-            {
-                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
-            }
-        ],
         "client": [
             {
-                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
-            }
-        ],
-        "server": [
-            {
-                "value": "com.github.chromaticforge.freelook.FreelookEntrypoint"
+                "adapter": "kotlin",
+                "value": "com.github.chromaticforge.freelook.FreelookMod"
             }
         ]
     },

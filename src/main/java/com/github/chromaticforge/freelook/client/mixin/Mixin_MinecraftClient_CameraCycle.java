@@ -1,6 +1,5 @@
 package com.github.chromaticforge.freelook.client.mixin;
 
-
 import com.github.chromaticforge.freelook.client.CameraCycleHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
@@ -15,15 +14,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 //#endif
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 
-
-/**
- * An example Mixin using SpongePowered's Mixin library
- *
- * @see Mixin
- * @see Inject
- */
 @Mixin(MinecraftClient.class)
 public class Mixin_MinecraftClient_CameraCycle {
 
