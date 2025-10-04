@@ -21,23 +21,10 @@ pluginManagement {
 
     plugins {
         kotlin("jvm") version("1.9.10")
-        id("dev.deftu.gradle.multiversion-root") version("2.33.3")
+        id("dev.deftu.gradle.multiversion-root") version("2.58.+")
     }
 }
 
-val projectName: String = extra["mod.name"]?.toString()
-    ?: throw MissingPropertyException("mod.name has not been set.")
-
+val projectName: String = extra["mod.name"]?.toString() ?: throw MissingPropertyException("mod.name has not been set.")
 rootProject.name = projectName
-rootProject.buildFileName = "root.gradle.kts"
-
-listOf(
-    "1.8.9-forge",
-    "1.12.2-forge"
-).forEach { version ->
-    include(":$version")
-    project(":$version").apply {
-        projectDir = file("versions/$version")
-        buildFileName = "../../build.gradle.kts"
-    }
-}
+rootProject.buildFileName = "build.gradle.kts"

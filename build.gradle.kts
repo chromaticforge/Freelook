@@ -1,20 +1,16 @@
-@file:Suppress("UnstableApiUsage", "PropertyName")
-
 import com.modrinth.minotaur.dependencies.DependencyType
 import com.modrinth.minotaur.dependencies.ModDependency
 import dev.deftu.gradle.utils.GameSide
 import dev.deftu.gradle.utils.VersionType
 
 plugins {
-    java
-    kotlin("jvm")
-    id("dev.deftu.gradle.multiversion")
-    id("dev.deftu.gradle.tools")
-    id("dev.deftu.gradle.tools.resources")
-    id("dev.deftu.gradle.tools.bloom")
-    id("dev.deftu.gradle.tools.shadow")
-    id("dev.deftu.gradle.tools.minecraft.loom")
-    id("dev.deftu.gradle.tools.minecraft.releases")
+    id("java")
+    id("dev.deftu.gradle.tools") version("2.58.+")
+    id("dev.deftu.gradle.tools.resources") version("2.58.+")
+    id("dev.deftu.gradle.tools.bloom") version("2.58.+")
+    id("dev.deftu.gradle.tools.shadow") version("2.58.+")
+    id("dev.deftu.gradle.tools.minecraft.loom") version("2.58.+")
+    id("dev.deftu.gradle.tools.minecraft.releases") version("2.58.+")
 }
 
 repositories {
