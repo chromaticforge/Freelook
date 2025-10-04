@@ -18,11 +18,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-
-    plugins {
-        kotlin("jvm") version("1.9.10")
-        id("dev.deftu.gradle.multiversion-root") version("2.58.+")
-    }
 }
 
 val projectName: String = extra["mod.name"]?.toString() ?: throw MissingPropertyException("mod.name has not been set.")

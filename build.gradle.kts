@@ -5,6 +5,7 @@ import dev.deftu.gradle.utils.VersionType
 
 plugins {
     id("java")
+    kotlin("jvm") version ("1.9.10")
     id("dev.deftu.gradle.tools") version("2.58.+")
     id("dev.deftu.gradle.tools.resources") version("2.58.+")
     id("dev.deftu.gradle.tools.bloom") version("2.58.+")
