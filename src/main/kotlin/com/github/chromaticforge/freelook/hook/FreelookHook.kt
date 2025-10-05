@@ -52,6 +52,8 @@ object FreelookHook {
 
     @JvmStatic
     fun overrideMouse(): Boolean {
+        if (perspectiveToggled && mc.currentScreen != null) setPerspective(false)
+
         if (mc.inGameHasFocus) {
             if (!perspectiveToggled) return true
 

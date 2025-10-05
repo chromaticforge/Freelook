@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-// TODO: Simplify with MixinExtras (in 0.2.0)
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin {
 

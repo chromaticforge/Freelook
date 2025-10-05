@@ -11,16 +11,17 @@ import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard
+import cc.polyfrost.oneconfig.utils.dsl.mc
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils
-import com.github.chromaticforge.freelook.Constants
+import com.github.chromaticforge.freelook.FreelookMod
 import com.github.chromaticforge.freelook.hook.FreelookHook
 
 object FreelookConfig : Config(
     Mod(
-        Constants.NAME,
+        FreelookMod.NAME,
         ModType.UTIL_QOL,
-        "/assets/${Constants.ID}/icon.svg"
-    ), Constants.ID + ".json"
+        "/assets/${FreelookMod.ID}/icon.svg"
+    ), FreelookMod.ID + ".json"
 ) {
 
     // None
@@ -36,10 +37,7 @@ object FreelookConfig : Config(
     var keyBind = OneKeyBind(UKeyboard.KEY_LMENU)
 
 //    // TODO: Add "both" option that will toggle if pressed quickly and will hold if held
-//    @Dropdown(name = "Freelook Mode", options = ["Hold", "Toggle"], subcategory = "Controls")
-//    var mode = 0
-
-    @DualOption(name = "Control Mode", left = "Hold", right = "Toggle", subcategory = "Controls")
+    @DualOption(name = "Control Mode", left = "Toggle", right = "Hold", subcategory = "Controls")
     var mode = true
 
     // General
