@@ -6,6 +6,7 @@
   "client": [
     "ActiveRenderInfoMixin",
     "EntityRendererMixin",
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "RenderManagerMixin"
   ]
 }
