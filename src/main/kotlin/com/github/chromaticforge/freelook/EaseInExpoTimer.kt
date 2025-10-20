@@ -19,16 +19,15 @@ class EaseInExpoTimer(private val durationMs: Long) {
         this.active = false
     }
 
+    // had to kotlinize my kotlin code... typa shit im on.
     val currentProgress: Float
-        get() {
-            if (!this.active || startTime == 0L) {
-                return 0.0f
+        get() = when {
+            !active || startTime == 0L -> 0.0f
+            complete -> 1.0f
+            else -> {
+                val f = ((durationMs - timeRemaining).toFloat() / durationMs).coerceIn(0.0f, 1.0f)
+                (1.0f - 2.0f.pow(-10.0f * f)).coerceIn(0.0f, 1.0f)
             }
-            if (this.complete) {
-                return 1.0f
-            }
-            val f = (durationMs - this.timeRemaining).toFloat() / durationMs
-            return if (f >= 1.0f) 1.0f else 1.0f - 2.0f.pow((-10.0f * f))
         }
 
     private val timeRemaining: Long

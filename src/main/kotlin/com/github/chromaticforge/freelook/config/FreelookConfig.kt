@@ -20,7 +20,7 @@ object FreelookConfig : Config(
     Mod(
         FreelookMod.NAME,
         ModType.UTIL_QOL,
-        "/assets/${FreelookMod.ID}/icon.svg"
+        "/assets/${FreelookMod.ID}/icon.png"
     ), FreelookMod.ID + ".json"
 ) {
 

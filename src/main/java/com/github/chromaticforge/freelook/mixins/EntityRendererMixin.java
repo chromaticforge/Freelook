@@ -23,6 +23,7 @@ public class EntityRendererMixin {
                 !FreelookHook.timer.getActive() ||
                 !FreelookConfig.INSTANCE.getSmoothCamera()) {
             GlStateManager.translate(x, y, z);
+            return;
         }
 
         float baseScale = 0.125f;
