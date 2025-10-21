@@ -57,7 +57,7 @@ toolkitReleases {
     }
 
     curseforge {
-        projectId.set("freelook-oneconfig")
-        relations.add(CurseRelation("OneConfig Bootstrap", CurseRelationType.EMBEDDED))
+        projectId.set("1369273")
+        relations.add(CurseRelation("oneconfig", CurseRelationType.EMBEDDED))
     }
 }
