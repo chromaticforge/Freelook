@@ -1,5 +1,7 @@
 import com.modrinth.minotaur.dependencies.DependencyType
 import com.modrinth.minotaur.dependencies.ModDependency
+import dev.deftu.gradle.tools.minecraft.CurseRelation
+import dev.deftu.gradle.tools.minecraft.CurseRelationType
 import dev.deftu.gradle.utils.GameSide
 import dev.deftu.gradle.utils.VersionType
 
@@ -52,5 +54,10 @@ toolkitReleases {
     modrinth {
         projectId.set("freelook-oneconfig")
         dependencies.add(ModDependency("oneconfig", DependencyType.EMBEDDED))
+    }
+
+    curseforge {
+        projectId.set("freelook-oneconfig")
+        relations.add(CurseRelation("OneConfig Bootstrap", CurseRelationType.EMBEDDED))
     }
 }
